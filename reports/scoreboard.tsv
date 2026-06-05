@@ -1,0 +1,18 @@
+name=v2 (20-set)	FNR=11.5	recall=88.5	FP=23	FPR_raw=18.9	prec=75.0	stance_acc=71.0	TP=69	FN=9	real=78	nom=122
+name=v3-exa (20-set)	FNR=14.1	recall=85.9	FP=29	FPR_raw=23.8	prec=69.8	stance_acc=73.1	TP=67	FN=11	real=78	nom=122
+name=ensemble-v2v3 (20-set)	FNR=6.4	recall=93.6	FP=35	FPR_raw=28.7	prec=67.6	stance_acc=69.9	TP=73	FN=5	real=78	nom=122
+name=v4-social+complete	FNR=9.7	recall=90.3	FP=95	FPR_raw=27.5	prec=59.6	stance_acc=69.3	TP=140	FN=15	real=155	nom=345
+name=v6=v4+critic	FNR=7.7	recall=92.3	FP=108	FPR_raw=31.3	prec=57.0	stance_acc=69.9	TP=143	FN=12	real=155	nom=345
+name=v7=v4+stance-guide	FNR=52.3	recall=47.7	FP=28	FPR_raw=8.1	prec=72.5	stance_acc=73.0	TP=74	FN=81	real=155	nom=345
+name=v9=v4+qexpand	FNR=57.4	recall=42.6	FP=30	FPR_raw=8.7	prec=68.8	stance_acc=69.7	TP=66	FN=89	real=155	nom=345
+name=v8=v4+disambig+multilabel	FNR=53.5	recall=46.5	FP=30	FPR_raw=8.7	prec=70.6	stance_acc=69.4	TP=72	FN=83	real=155	nom=345
+name=v5=exa-gather-code	FNR=11.6	recall=88.4	FP=68	FPR_raw=19.7	prec=66.8	stance_acc=73.7	TP=137	FN=18	real=155	nom=345
+name=v6 (v4+critic)	FNR=7.7	recall=92.3	FP=108	FPR_raw=31.3	prec=57.0	stance_acc=69.9	TP=143	FN=12	real=155	nom=345
+name=v5 (exa gather-code)	FNR=11.6	recall=88.4	FP=68	FPR_raw=19.7	prec=66.8	stance_acc=73.7	TP=137	FN=18	real=155	nom=345
+name=ENSEMBLE v6 u v5	FNR=2.6	recall=97.4	FP=120	FPR_raw=34.8	prec=55.7	stance_acc=71.5	TP=151	FN=4	real=155	nom=345
+name=v4 social+complete	FNR=9.7	recall=90.3	FP=95	FPR_raw=27.5	prec=59.6	stance_acc=69.3	TP=140	FN=15	real=155	nom=345
+name=v5 exa-gather-code	FNR=11.6	recall=88.4	FP=68	FPR_raw=19.7	prec=66.8	stance_acc=73.7	TP=137	FN=18	real=155	nom=345
+name=v6 v4+critic	FNR=7.7	recall=92.3	FP=108	FPR_raw=31.3	prec=57.0	stance_acc=69.9	TP=143	FN=12	real=155	nom=345
+name=v10 stacked-prompts	FNR=9.7	recall=90.3	FP=84	FPR_raw=24.3	prec=62.5	stance_acc=72.1	TP=140	FN=15	real=155	nom=345
+name=ENS v6uv5	FNR=2.6	recall=97.4	FP=120	FPR_raw=34.8	prec=55.7	stance_acc=71.5	TP=151	FN=4	real=155	nom=345
+name=ENS v6uv5uv10	FNR=1.9	recall=98.1	FP=125	FPR_raw=36.2	prec=54.9	stance_acc=72.4	TP=152	FN=3	real=155	nom=345

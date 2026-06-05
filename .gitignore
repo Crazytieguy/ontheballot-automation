@@ -1,0 +1,10 @@
+# secrets
+.env
+# full data — third-party private spreadsheet + unvalidated AI outputs (regenerable)
+data/
+# tool caches
+.playwright-cli/
+.llms-fetch-mcp/
+# python
+__pycache__/
+*.pyc
