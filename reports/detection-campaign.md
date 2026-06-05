@@ -1,4 +1,4 @@
-> **Detailed log (deep dive).** Start at the repo `README.md` / `docs/method.md`; this file is the full chronological record incl. abandoned approaches.
+> **Detailed log (deep dive).** Start at the repo `README.md`; this file is the full chronological record incl. abandoned approaches.
 
 # AI-position extraction — experiment log
 

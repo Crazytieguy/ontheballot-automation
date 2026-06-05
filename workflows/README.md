@@ -1,4 +1,8 @@
-# Workflows manifest
+# Historical experiment workflows
+
+> These are the **historical** experiment runs (kept as the R&D record). The current
+> best pipeline is a single file at the repo root: **`../pipeline.js`**. Runner pitfalls
+> common to all of them are in [`CLAUDE.md`](CLAUDE.md).
 
 Multi-agent runner scripts for the detection/verify/stance experiments. Each fans
 out one agent per unit (candidate, or cell) and aggregates structured output.
@@ -17,7 +21,7 @@ Detection ensemble = three diverse methods, union of detections:
 2. **Exa gather→code** — `tools/gather_exa.py` + `03`
 3. **Stacked-prompt single pass** — `04` (all recall levers in one prompt)
 
-Union of the three = **FNR 1.9% / recall 98.1%**, adjudicated true-FPR **9.6%** — both targets ~met (unverified). Leave-one-out: the Exa gather→code member is the most valuable (see `docs/method.md`).
+Union of the three = **FNR 1.9% / recall 98.1%**, adjudicated true-FPR **9.6%** — both targets ~met (unverified). Leave-one-out: the Exa gather→code member is the most valuable (see `../README.md`).
 
 (The table below is the historical record of every run; the internal v-labels there are kept only as that history.)
 
@@ -35,7 +39,7 @@ Union of the three = **FNR 1.9% / recall 98.1%**, adjudicated true-FPR **9.6%** 
 | 08 | `08-adjudicate-fps-v2.js` | Same adjudication for v2 FPs; file+n passed via args. | **One-shot analysis (kept as record).** Confirmed v2 true-FPR ~4-6%; genuine errors are topic over-assignment. Superseded by 09 for the ensemble. |
 | 09 ★ | `09-verify-ensemble-fps.js` | Adjudicate every ensemble FP vs source (with playwright for social/JS) + **retry on ERROR**. The soft-triage verify stage. | **Kept — the verify/triage stage.** Adjudicated all 125 ensemble FPs: 90 (72%) were real human-misses, 33 genuine errors → **true-FPR 9.6%**. Cleanly separates the review queue; does NOT drop. |
 | 10 ★ | `10-stance-classify.js` | Isolated stance sweep: read GT source, classify direction per prompt variant (base / cot / conv / fewshot / decisive / decompose), apply topic conventions. | **Kept — stance classifier.** Best variant = **`decisive`** (~73% under a consistent rubric vs 64% baseline; over-hedging variants fewshot/decompose were worse). Ceiling is GT inconsistency, not prompting. |
-| 11 | `11-organize-docs.js` | Meta: draft + critic-refine this repo's documentation (README, docs/method.md, docs/findings.md, this manifest) for progressive disclosure. | **One-shot (kept as record).** Produced the initial docs; not part of the detection/stance pipeline. |
+| 11 | `11-organize-docs.js` | Meta: draft + critic-refine this repo's documentation (later consolidated into `../README.md`) for progressive disclosure. | **One-shot (kept as record).** Produced the initial docs; not part of the detection/stance pipeline. |
 
 ## Dead-ends summarized (live in `reports/`)
 - v1 balanced prompt (01): FNR 30.8%.

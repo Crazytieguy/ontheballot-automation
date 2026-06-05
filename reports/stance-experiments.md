@@ -1,4 +1,4 @@
-> **Detailed log (deep dive).** Start at the repo `README.md` / `docs/method.md`; this file is the full chronological record incl. abandoned approaches.
+> **Detailed log (deep dive).** Start at the repo `README.md`; this file is the full chronological record incl. abandoned approaches.
 
 # Stance-direction accuracy experiments (2026-06-03)
 
