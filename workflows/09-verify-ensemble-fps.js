@@ -17,7 +17,7 @@ const runOne = (i) => {
   return agent(
     `Read the JSON file data/eval/${dir}/${nnn}.json . Fields: cand, name, topic, topicName, includes, excludes, stance (predicted), summary (predicted), urls (cited).\n`+
     `An automated detector flagged THIS candidate (by name) as having this position. VERIFY strictly as a fact-checker.\n`+
-    `(1) WebFetch each cited url (for social/JS pages use playwright-cli via Bash: open about:blank; goto URL; eval "() => document.body.innerText"; retry a failed fetch once; if none load -> UNREACHABLE). (2) Read what the named candidate actually says/does. (3) Judge:\n`+
+    `(1) WebFetch each cited url (for social/JS pages use playwright-cli via Bash: open about:blank; goto URL; eval "() => document.body.innerText"; then MANDATORY playwright-cli close — never leave the browser open; retry a failed fetch once; if none load -> UNREACHABLE). (2) Read what the named candidate actually says/does. (3) Judge:\n`+
     `   SUPPORTED = the page genuinely shows THIS candidate taking a position satisfying the topic INCLUDES (not just EXCLUDES). satisfies_includes=true.\n`+
     `   WRONG_TOPIC = candidate says something AI-related but it does NOT match this topic INCLUDES (matches EXCLUDES or another topic). satisfies_includes=false.\n`+
     `   NOT_SUPPORTED = page does not show this candidate taking this position (another person's words / no such statement / fabricated). satisfies_includes=false.\n`+

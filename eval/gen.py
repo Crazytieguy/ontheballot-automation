@@ -33,7 +33,7 @@ Per topic, do at least one topic-specific query if general searches didn't surfa
 SOCIAL_COMPLETE="""
 # MANDATORY social-media pass (do NOT skip)
 After your general searches, explicitly search '{name}' on Facebook, X/Twitter, Instagram, and LinkedIn. For ANY candidate post/page you find a URL for, READ it with playwright (WebFetch usually fails on these):
-  `playwright-cli open about:blank` then `playwright-cli goto "<url>"` then `playwright-cli eval "() => document.body.innerText"` (then `playwright-cli close`).
+  `playwright-cli open about:blank` then `playwright-cli goto "<url>"` then `playwright-cli eval "() => document.body.innerText"`. MANDATORY: run `playwright-cli close` as soon as you are done reading — never leave the browser open (it leaks processes on the host).
 Social-media statements are real positions — capture them.
 
 # Completeness self-check before finalizing (do NOT skip)
@@ -83,7 +83,7 @@ A deterministic Exa search already gathered evidence for this candidate at:
 It has 'exa_answer' (an LLM summary of the candidate's AI positions — a LEAD only; verify against real sources, do NOT trust blindly) and 'leads' (deduped {{title,url,snippet,via}} from answer-citations + web/congress.gov/social searches).
 Steps:
 1. Read the dossier with the Read tool. For each of the 10 topics, scan exa_answer + leads for relevant evidence.
-2. READ the most relevant lead URLs to confirm the candidate's ACTUAL words: `uv run --quiet --with requests python tools/exa.py contents "<url>" --text 4000` or WebFetch; for social/JS/login-walled pages use playwright (`playwright-cli open about:blank`; `playwright-cli goto "<url>"`; `playwright-cli eval "() => document.body.innerText"`).
+2. READ the most relevant lead URLs to confirm the candidate's ACTUAL words: `uv run --quiet --with requests python tools/exa.py contents "<url>" --text 4000` or WebFetch; for social/JS/login-walled pages use playwright (`playwright-cli open about:blank`; `playwright-cli goto "<url>"`; `playwright-cli eval "() => document.body.innerText"`; then MANDATORY `playwright-cli close` — never leave the browser open, it leaks processes).
 3. If a topic has no relevant lead, run 1-2 targeted WebSearch queries before concluding No mention.
 Base every detected=true on a source you actually read.
 """

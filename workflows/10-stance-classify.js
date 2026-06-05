@@ -27,7 +27,7 @@ const runOne = (i) => {
   const nnn = String(i).padStart(3,'0')
   return agent(
     `Read the JSON file data/eval/stance/${nnn}.json . It has a candidate (name/state/party/seat), a topic (topicName/description/includes/excludes), and 'gt_sources' (URLs).\n`+
-    `READ the gt_sources to see what THIS candidate (by name) actually said/did on this topic (use WebFetch; for social/JS pages use playwright-cli via Bash: open about:blank; goto URL; eval "() => document.body.innerText"). If a source won't load, reason from the title/snippet and topic.\n`+
+    `READ the gt_sources to see what THIS candidate (by name) actually said/did on this topic (use WebFetch; for social/JS pages use playwright-cli via Bash: open about:blank; goto URL; eval "() => document.body.innerText"; then MANDATORY playwright-cli close — never leave the browser open). If a source won't load, reason from the title/snippet and topic.\n`+
     `${G}\n`+
     `You MUST finish by calling StructuredOutput with {stance, reasoning}.`,
     { label: ids[i], phase:'Classify', schema: SCHEMA }

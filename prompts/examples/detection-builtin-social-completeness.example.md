@@ -25,16 +25,11 @@ Per topic, do at least one topic-specific query if general searches didn't surfa
 
 # MANDATORY social-media pass (do NOT skip)
 After your general searches, explicitly search 'John Cornyn' on Facebook, X/Twitter, Instagram, and LinkedIn. For ANY candidate post/page you find a URL for, READ it with playwright (WebFetch usually fails on these):
-  `playwright-cli open about:blank` then `playwright-cli goto "<url>"` then `playwright-cli eval "() => document.body.innerText"` (then `playwright-cli close`).
+  `playwright-cli open about:blank` then `playwright-cli goto "<url>"` then `playwright-cli eval "() => document.body.innerText"`. MANDATORY: run `playwright-cli close` as soon as you are done reading — never leave the browser open (it leaks processes on the host).
 Social-media statements are real positions — capture them.
 
 # Completeness self-check before finalizing (do NOT skip)
 List the topics you are about to mark "No mention". For the 3 you are least confident about, run ONE more targeted search + read a source. Only keep "No mention" if you genuinely found no engagement. This catches misses.
-
-
-# Aggressive query expansion (run these IN ADDITION)
-Search the candidate against named AI bills (sponsorship/cosponsorship/votes): "TAKE IT DOWN Act", "GUARD Act", "Kids Online Safety Act"/"KOSA", "CHAT Act", "Chip Security Act", "No DeepSeek on Government Devices Act", "AI Overwatch Act", "DEFIANCE Act", "NO FAKES Act", "CREATE AI Act", "AI Accountability Act".
-Also run: '"John Cornyn" "AI task force"', '"John Cornyn" roll call vote AI', '"John Cornyn" committee hearing artificial intelligence', '"John Cornyn" town hall AI', and the candidate's full legal name / nickname variants.
 
 # Topic rubric
 ### export-control — Export Control and Compute Governance
@@ -86,13 +81,6 @@ Also run: '"John Cornyn" "AI task force"', '"John Cornyn" roll call vote AI', '"
 - Definition: Positions on AI training data rights, copyright protections for creators and publishers, and liability for AI-generated content.
 - INCLUDES (counts as a position): 
 - EXCLUDES (does NOT count — code No mention): 
-# Topic disambiguation (these overlap — and MULTI-LABEL when warranted)
-- A single statement MAY satisfy MORE THAN ONE topic. If so, code it under EACH topic it fits (same source URL on multiple topics is fine). Do not force one bucket.
-- companion-chatbots = AI built for emotional/relational/companionship interaction. children-safety = protecting minors online (incl. AI-generated CSAM, deepfakes of minors, addictive algorithms). A kids-AI-safety bill that names companion/relationship chatbots fits BOTH.
-- deepfakes-fraud = synthetic media, AI scams/impersonation, NCII/deepfake porn (incl. of minors). Deepfakes targeting minors ALSO fit children-safety.
-- regulation-philosophy = general stance on regulating AI. AI-preemption = SPECIFICALLY federal preemption of STATE AI laws (the moratorium / states' rights to regulate). Commending a federal AI framework is regulation-philosophy, NOT preemption, unless it addresses overriding state law.
-- export-control = restricting AI chips/compute/China competition via controls. military-ai = DoD/intelligence USE of AI (weapons, targeting, C2, surveillance). Chip export bans => export-control; battlefield/defense AI => military-ai.
-
 # Detection threshold (LOWER than you might assume)
 - detected=true if the candidate ENGAGED the topic in any way: stated a view, sponsored/cosponsored relevant legislation, voted on it, participated in a hearing/task force on it, or commented in news/social media — EVEN IF direction is ambiguous.
 - If engaged but you cannot pin Support vs Oppose, set detected=true with stance="Unclear" (NOT No mention). 'Unclear' is valid and valuable.
@@ -104,14 +92,6 @@ Also run: '"John Cornyn" "AI task force"', '"John Cornyn" roll call vote AI', '"
 - deepfakes-fraud (counterintuitive): "Oppose" = opposes deepfakes/fraud (wants to crack down/regulate); "Support" = downplays the concern. Cracking down => "Oppose".
 - data-centers: use a precise label ("Supports/Opposes data center development", "Supports/Opposes data center regulation") when directional; else Support/Oppose/Mixed.
 - confidence: High (explicit/on-record), Medium (clear but indirect), Low (weak/inferred), N/A only for No mention.
-
-# Stance labeling guide — worked examples (get the DIRECTION right)
-- Don't default to "Support" — read whether the candidate FAVORS or RESISTS the specific thing each topic describes.
-- "Mixed" = voices BOTH support and concern on the SAME topic ("we must lead in AI data centers BUT protect ratepayers" => data-centers Mixed; "pro-innovation yet worried about risks" => regulation-philosophy Mixed).
-- "Unclear" = ENGAGES the topic but takes no discernible side ("served on the AI task force discussing workforce impacts", no stated view => Unclear).
-- deepfakes-fraud: "introduced a bill to criminalize deepfake porn / crack down on AI scams" => Oppose. "deepfake fears are overblown" => Support.
-- data-centers: "we want data centers here, win the AI race" => Supports data center development. "data centers must disclose impact / fund their own power before operating" => Supports data center regulation. "stop data centers draining our water" => Opposes data center development.
-- regulation-philosophy: "light-touch, AI as a force for deregulation" => Oppose (opposes heavy regulation). "we need real guardrails / mandatory testing" => Support.
 
 ## Worked examples (from already-coded candidates — study the conventions)
 

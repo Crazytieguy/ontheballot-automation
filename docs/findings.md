@@ -19,43 +19,52 @@ a separate **142-cell** isolated eval. Scorers: `eval/score.py`, `eval/board.py`
   adjudication, never raw FP-vs-GT.
 - A recall-first prompt alone (detect any topic *engagement*; code Unclear not
   No-mention when direction is ambiguous; mandatory congress.gov sponsor/cosponsor/
-  vote mining) cut FNR **30.8% → 11.5%** (v1 balanced → v2 recall-first). The
-  abandoned v1 balanced prompt sat at 30.8% FNR.
+  vote mining) cut FNR **30.8% → 11.5%** vs the original balanced-prompt baseline (which,
+  as an abandoned approach, sat at 30.8% FNR).
 
 ## 2. The multi-method ensemble is THE recall lever (not the engine)
-- Single methods plateau at **~8–12% FNR** (v6 7.7%, v4 9.7%, v10 9.7%, v5 11.6%).
-- The **union of three diverse detectors** — built-in-search + critic re-check (v6),
-  Exa gather→code (v5), stacked-prompt (v10) — reaches **FNR 1.9% / 98.1% recall**.
-  Two members (v6 ∪ v5) already hit 2.6% FNR.
+- Single methods plateau at **~8–12% FNR** (built-in+critic 7.7%, stacked-prompt 9.7%,
+  Exa gather→code 11.6%).
+- The **union of three diverse detectors** — built-in-search + critic re-check,
+  Exa gather→code, and a stacked-prompt pass — reaches **FNR 1.9% / 98.1% recall**.
+  Just the first two already hit 2.6% FNR.
+- **Leave-one-out shows Exa gather→code is the most valuable member** (dropping it →
+  FN +5; it uniquely catches 5 cells nothing else does), built-in+critic next (+4), and
+  the stacked-prompt least (+1). The two built-in-based methods overlap heavily, so the
+  complementary Exa method carries the diversity — keep it.
 - Why it works: diverse methods miss **different** cells, so their misses cancel.
   Method *diversity* is what matters (built-in+critic vs Exa-gather are
   complementary).
-- **Engine choice (built-in WebSearch vs Exa) was NOT the lever** — the v3
-  agent-driven Exa engine-swap was a wash vs built-in (within run-to-run variance:
-  gained 4 cells, lost 6). Keep both in the ensemble cheaply; don't expect one
-  engine to win.
+- **Swapping the search engine inside one agent was NOT the lever** — replacing built-in
+  WebSearch with Exa search in the same detection agent was a wash (run-to-run variance:
+  gained 4 cells, lost 6). This is distinct from the *Exa gather→code method*, which IS
+  the most valuable member (above) — the win is method diversity, not the engine.
 - Other recall contributors, ranked: recall-first prompt + lowered "engagement"
   threshold (#1) > critic re-check pass > forced social access via playwright
   (recovers Facebook-only positions) > Exa gather→code as a member.
 
-## 3. The ground truth UNDER-COUNTS real positions by ~26%
+## 3. The ground truth appears to UNDER-COUNT real positions by ~26%
+> Unverified: the "human-missed" judgements below are an LLM adjudicator's, not yet
+> confirmed by a human. Strong signal, but treat as provisional.
 - When the ensemble's **125 raw "false positives"** were adjudicated against their
-  cited sources: **90 (72%) were REAL positions the human coders had MISSED** — the
-  system was correct. Only **33 (26%)** were genuine errors; 2 unverifiable.
-- **True false-positive rate = 33/345 = 9.6%** (under the <10% target).
-  GT-corrected precision (crediting the human-misses) = **88%**, vs a raw
+  cited sources, an LLM adjudicator judged **90 (72%) to be REAL positions the human
+  coders had missed**. Only **33 (26%)** were judged genuine errors; 2 unverifiable.
+- **Implied true false-positive rate = 33/345 = 9.6%** (under the <10% target).
+  GT-corrected precision (crediting the apparent human-misses) = **88%**, vs a raw
   FP-vs-GT precision that looks like ~55%.
-- Consequence: the automation **improves coverage**, it doesn't merely match humans.
-  ~26% of GT-No-mention cells are actually positions, so those labels can't be
-  trusted. **Measure precision by adjudication, never raw FP-vs-GT.**
+- If it holds, the automation **improves coverage**, not merely matches humans —
+  ~26% of GT-No-mention cells would actually be positions, so those labels can't be
+  trusted. Either way: **measure precision by adjudication, never raw FP-vs-GT.**
 - Genuine errors are overwhelmingly **topic over-assignment** (real AI content filed
   under the wrong topic; one statement is even double-coded across topics in GT) plus
   occasional misattribution — exactly the class a verify stage can flag.
 
 ## 4. Verify as SOFT TRIAGE — never auto-drop
 - **Hard verify-and-drop was tested and HURT recall:** applying "keep only SUPPORTED"
-  to v2 took recall 88.5% → 80.8% (FNR 11.5% → 19.2%). Of 13 dropped detections,
-  6 were real GT positions (verify *created* FNs).
+  to a recall-first pass took recall 88.5% → 80.8% (FNR 11.5% → 19.2%). Of 13 dropped
+  detections, 6 were real GT positions (verify *created* FNs).
+- **Whether production needs verify at all is TBD** — since every cell is human-reviewed,
+  verify may only be worth keeping as a queue-prioritization signal. Undecided.
 - Failure modes of a strict verifier: (a) the human coder uses a generous
   "engagement counts" bar (task-force membership, tangential mentions), and a generic
   strict fact-checker disagrees and rejects valid borderline cells; (b) fetch

@@ -13,11 +13,13 @@ measured by ADJUDICATION, not raw FP-vs-GT (GT under-counts ~26%).
 `DETECT (recall-first, multi-method) → ENSEMBLE union → VERIFY as soft triage → human`
 
 Detection ensemble = three diverse methods, union of detections:
-1. **04** with the v4 prompt (built-in search, social+completeness) **+ 05** critic recheck → "v6"
-2. **03** Exa gather→code → "v5"
-3. **04** with the v10 stacked-prompt → "v10"
+1. **Built-in search + critic re-check** — `04` (built-in, social+completeness prompt) **+ 05** critic
+2. **Exa gather→code** — `tools/gather_exa.py` + `03`
+3. **Stacked-prompt single pass** — `04` (all recall levers in one prompt)
 
-Ensemble v6∪v5∪v10 = **FNR 1.9% / recall 98.1%**, adjudicated true-FPR **9.6%** — both targets ~met.
+Union of the three = **FNR 1.9% / recall 98.1%**, adjudicated true-FPR **9.6%** — both targets ~met (unverified). Leave-one-out: the Exa gather→code member is the most valuable (see `docs/method.md`).
+
+(The table below is the historical record of every run; the internal v-labels there are kept only as that history.)
 
 ## Manifest
 
@@ -33,6 +35,7 @@ Ensemble v6∪v5∪v10 = **FNR 1.9% / recall 98.1%**, adjudicated true-FPR **9.6
 | 08 | `08-adjudicate-fps-v2.js` | Same adjudication for v2 FPs; file+n passed via args. | **One-shot analysis (kept as record).** Confirmed v2 true-FPR ~4-6%; genuine errors are topic over-assignment. Superseded by 09 for the ensemble. |
 | 09 ★ | `09-verify-ensemble-fps.js` | Adjudicate every ensemble FP vs source (with playwright for social/JS) + **retry on ERROR**. The soft-triage verify stage. | **Kept — the verify/triage stage.** Adjudicated all 125 ensemble FPs: 90 (72%) were real human-misses, 33 genuine errors → **true-FPR 9.6%**. Cleanly separates the review queue; does NOT drop. |
 | 10 ★ | `10-stance-classify.js` | Isolated stance sweep: read GT source, classify direction per prompt variant (base / cot / conv / fewshot / decisive / decompose), apply topic conventions. | **Kept — stance classifier.** Best variant = **`decisive`** (~73% under a consistent rubric vs 64% baseline; over-hedging variants fewshot/decompose were worse). Ceiling is GT inconsistency, not prompting. |
+| 11 | `11-organize-docs.js` | Meta: draft + critic-refine this repo's documentation (README, docs/method.md, docs/findings.md, this manifest) for progressive disclosure. | **One-shot (kept as record).** Produced the initial docs; not part of the detection/stance pipeline. |
 
 ## Dead-ends summarized (live in `reports/`)
 - v1 balanced prompt (01): FNR 30.8%.

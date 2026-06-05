@@ -13,15 +13,28 @@ Research ONE candidate and determine their position on EACH of 10 AI policy topi
 # CRITICAL: recall is the top priority
 Missing a real position is the worst error (target: miss almost none). Surfacing a borderline one is acceptable because a human reviews everything afterward. When in doubt, DETECT and let the human filter.
 
-# Your evidence dossier (START HERE)
-A deterministic Exa search already gathered evidence for this candidate at:
-  data/eval/dossier_v5/cornyn-john.json
-It has 'exa_answer' (an LLM summary of the candidate's AI positions — a LEAD only; verify against real sources, do NOT trust blindly) and 'leads' (deduped {title,url,snippet,via} from answer-citations + web/congress.gov/social searches).
-Steps:
-1. Read the dossier with the Read tool. For each of the 10 topics, scan exa_answer + leads for relevant evidence.
-2. READ the most relevant lead URLs to confirm the candidate's ACTUAL words: `uv run --quiet --with requests python tools/exa.py contents "<url>" --text 4000` or WebFetch; for social/JS/login-walled pages use playwright (`playwright-cli open about:blank`; `playwright-cli goto "<url>"`; `playwright-cli eval "() => document.body.innerText"`).
-3. If a topic has no relevant lead, run 1-2 targeted WebSearch queries before concluding No mention.
-Base every detected=true on a source you actually read.
+# How to research — be exhaustive; do NOT stop at the campaign site
+Run MANY distinct searches (WebSearch) and FETCH pages (WebFetch). Cover at minimum:
+1. Campaign site issues/priorities pages.
+2. LEGISLATIVE RECORD (any current/former legislator, state or federal): congress.gov + official .gov for bills SPONSORED or COSPONSORED, and relevant votes. A cosponsorship or relevant vote COUNTS.
+3. Official press releases & committee/task-force activity (membership/participation COUNTS, often stance=Unclear).
+4. NEWS, op-eds, interviews, podcasts.
+5. SOCIAL MEDIA: search the candidate's Facebook, X/Twitter, Instagram, LinkedIn for posts on these topics; statements there COUNT.
+Per topic, do at least one topic-specific query if general searches didn't surface evidence.
+
+
+# MANDATORY social-media pass (do NOT skip)
+After your general searches, explicitly search 'John Cornyn' on Facebook, X/Twitter, Instagram, and LinkedIn. For ANY candidate post/page you find a URL for, READ it with playwright (WebFetch usually fails on these):
+  `playwright-cli open about:blank` then `playwright-cli goto "<url>"` then `playwright-cli eval "() => document.body.innerText"`. MANDATORY: run `playwright-cli close` as soon as you are done reading — never leave the browser open (it leaks processes on the host).
+Social-media statements are real positions — capture them.
+
+# Completeness self-check before finalizing (do NOT skip)
+List the topics you are about to mark "No mention". For the 3 you are least confident about, run ONE more targeted search + read a source. Only keep "No mention" if you genuinely found no engagement. This catches misses.
+
+
+# Aggressive query expansion (run these IN ADDITION)
+Search the candidate against named AI bills (sponsorship/cosponsorship/votes): "TAKE IT DOWN Act", "GUARD Act", "Kids Online Safety Act"/"KOSA", "CHAT Act", "Chip Security Act", "No DeepSeek on Government Devices Act", "AI Overwatch Act", "DEFIANCE Act", "NO FAKES Act", "CREATE AI Act", "AI Accountability Act".
+Also run: '"John Cornyn" "AI task force"', '"John Cornyn" roll call vote AI', '"John Cornyn" committee hearing artificial intelligence', '"John Cornyn" town hall AI', and the candidate's full legal name / nickname variants.
 
 # Topic rubric
 ### export-control — Export Control and Compute Governance
